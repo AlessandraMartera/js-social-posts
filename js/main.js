@@ -99,7 +99,7 @@ posts.forEach( element => {
             <div class="post__footer">
                 <div class="likes js-likes">
                     <div class="likes__cta">
-                        <a class="like-button  js-like-button" data-postid="1">
+                        <a class="like-button  js-like-button" href="#" data-postid="1">
                             <i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>
                             <span class="like-button__label">Mi Piace</span>
                         </a>
@@ -112,89 +112,57 @@ posts.forEach( element => {
         </div>
     ` ;
 
-  
-
-
-
 /*FIne primmo forEach*/
 }
 );
 
+// Milestone 3 - Se clicchiamo sul tasto “Mi Piace” cambiamo il colore al testo del bottone e incrementiamo il counter dei likes relativo.
+// Salviamo in un secondo array gli id dei post ai quali abbiamo messo il like.
+
 const arrayLikeButton = document.querySelectorAll('.like-button');
+const arrayIdPostLiked = [];
 let likeCounter = document.querySelectorAll('.js-likes-counter');
 
-
+// (function (el) { el.preventDefault(); …ilrestodeltuocodice });
 for ( let i = 0; i < arrayLikeButton.length; i++ ) {
 
     let stateLike = false;
 
     arrayLikeButton[i].addEventListener('click', 
-    function () {
-        
+    function (el) {
+        el.preventDefault(); 
         if (!stateLike) {
             arrayLikeButton[i].classList.add('like-button--liked');
             // aggiungere 1 a Likes del singolo obj post
             posts[i].likes++;
             console.log(posts[i].likes);
+            // aumento il couterLikes
             likeCounter[i].innerHTML = posts[i].likes;
             stateLike = true;
-            
+
+            // salva l'id relativo a questo post in un array 
+            arrayIdPostLiked.push(posts[i].id);
+            // stampa l'array con le posizione degli id salvati
+            console.log(arrayIdPostLiked);
+
         } else {
             
             arrayLikeButton[i].classList.remove('like-button--liked');
+
+            // decremento il counterLikes
             posts[i].likes--;
             console.log(posts[i].likes);
+
             likeCounter[i].innerHTML = posts[i].likes;
             stateLike = false;
+
+            // trovo la posizione dell'id che voglio rimuovere
+            let ind = arrayIdPostLiked.indexOf(posts[i].id);
+            // uso la funzione splice e gli dico di rimuove nella posizione di "id da rimuovere" e quanti me ne devo rimuovere
+            arrayIdPostLiked.splice(ind, 1);
+            // stampo l'array con l'elemento rimosso 
+            console.log(arrayIdPostLiked);
         }
     }
     );
 }
-
-
-/*
-arrayLikeButton.forEach ( likeButton => {
-
-    likeButton.addEventListener('click', 
-        function () {
-            
-            element.likes = likes++
-            console.log(element.likes);
-        }
-    ) 
-});
-  
-*/
-
-
-
-    // likeButton[element].addEventListener('click', 
-    // function () {
-    //     console.log("ciao");
-    // }
-    // );
-
-
-
-
-
-
-
-
-/*
-for ( let i = 0; i < posts.length; i++) {
-    let element = posts[i];
-    elAuthor = element.author;
-    console.log(elAuthor.name);
-}
-*/
-
-// Milestone 3 - Se clicchiamo sul tasto “Mi Piace” cambiamo il colore al testo del bottone e incrementiamo il counter dei likes relativo.
-// Salviamo in un secondo array gli id dei post ai quali abbiamo messo il like.
-
-
-
-// inizializzo le costanti che potrebbero servirmi 
-
-
-// container.innerHTML = "Qui andrà la costante post";
