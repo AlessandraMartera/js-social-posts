@@ -105,7 +105,7 @@ posts.forEach( element => {
                         </a>
                     </div>
                     <div class="likes__counter">
-                        Piace a <b id="like-counter-1" class="js-likes-counter">${likes}</b> persone
+                        Piace a <b class="js-likes-counter">${likes}</b> persone
                     </div>
                 </div> 
             </div>            
@@ -113,35 +113,43 @@ posts.forEach( element => {
     ` ;
 
   
-    const arrayLikeButton = document.querySelectorAll('.like-button');
 
-
-
-    for ( let i = 0; i < arrayLikeButton.length; i++ ) {
-    
-        let stateLike = true;
-    
-        arrayLikeButton[i].addEventListener('click', 
-        function () {
-            
-            if (stateLike) {
-                arrayLikeButton[i].classList.add('like-button--liked');
-                stateLike = false;
-                // aggiungere 1 a Likes del singolo obj post
-                
-            } else {
-                
-                arrayLikeButton[i].classList.remove('like-button--liked');
-                // remove 1 a Likes del singolo obj post
-            }
-        }
-        );
-    }
 
 
 /*FIne primmo forEach*/
 }
 );
+
+const arrayLikeButton = document.querySelectorAll('.like-button');
+let likeCounter = document.querySelectorAll('.js-likes-counter');
+
+
+for ( let i = 0; i < arrayLikeButton.length; i++ ) {
+
+    let stateLike = false;
+
+    arrayLikeButton[i].addEventListener('click', 
+    function () {
+        
+        if (!stateLike) {
+            arrayLikeButton[i].classList.add('like-button--liked');
+            // aggiungere 1 a Likes del singolo obj post
+            posts[i].likes++;
+            console.log(posts[i].likes);
+            likeCounter[i].innerHTML = posts[i].likes;
+            
+            stateLike = true;
+            
+        } else {
+            
+            arrayLikeButton[i].classList.remove('like-button--liked');
+            posts[i].likes--;
+            console.log(posts[i].likes);
+            likeCounter[i].innerHTML = posts[i].likes;
+        }
+    }
+    );
+}
 
 
 /*
