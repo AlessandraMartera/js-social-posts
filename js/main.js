@@ -71,11 +71,12 @@ const posts = [
 
 const container = document.getElementById("container");
 
+
 // Milestone 2 - Prendendo come riferimento il layout di esempio presente nell’html, stampiamo i post del nostro feed.
 
 posts.forEach( element => {
     
-    const { id, content, media, author, likes, created } = element;
+    let { id, content, media, author, likes, created } = element;
     const { name, image } = author;
     
     container.innerHTML +=  `
@@ -110,10 +111,66 @@ posts.forEach( element => {
             </div>            
         </div>
     ` ;
+
+  
+    const arrayLikeButton = document.querySelectorAll('.like-button');
+
+
+
+    for ( let i = 0; i < arrayLikeButton.length; i++ ) {
+    
+        let stateLike = true;
+    
+        arrayLikeButton[i].addEventListener('click', 
+        function () {
+            
+            if (stateLike) {
+                arrayLikeButton[i].classList.add('like-button--liked');
+                stateLike = false;
+                // aggiungere 1 a Likes del singolo obj post
+                
+            } else {
+                
+                arrayLikeButton[i].classList.remove('like-button--liked');
+                // remove 1 a Likes del singolo obj post
+            }
+        }
+        );
+    }
+
+
+/*FIne primmo forEach*/
 }
-
-
 );
+
+
+/*
+arrayLikeButton.forEach ( likeButton => {
+
+    likeButton.addEventListener('click', 
+        function () {
+            
+            element.likes = likes++
+            console.log(element.likes);
+        }
+    ) 
+});
+  
+*/
+
+
+
+    // likeButton[element].addEventListener('click', 
+    // function () {
+    //     console.log("ciao");
+    // }
+    // );
+
+
+
+
+
+
 
 
 /*
@@ -123,6 +180,7 @@ for ( let i = 0; i < posts.length; i++) {
     console.log(elAuthor.name);
 }
 */
+
 // Milestone 3 - Se clicchiamo sul tasto “Mi Piace” cambiamo il colore al testo del bottone e incrementiamo il counter dei likes relativo.
 // Salviamo in un secondo array gli id dei post ai quali abbiamo messo il like.
 
